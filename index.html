@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moochuu Brasil — Monte seu par (Fase 1)</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A2B3C; --muted:#5A6B7A; --teal:#0B7285; --teal-dark:#123B4F;
+    --orange:#E8590C; --pink:#D6336C; --blue:#4267B2; --amber:#F59F00;
+    --paper:#FBFAF7; --line:#E7E4DC; --gray-part:#EDEBE6; --gray-stroke:#D8D5CD;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',system-ui,Arial,sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;}
+  .wrap{max-width:1060px;margin:0 auto;padding:28px 20px 60px;}
+  header{display:flex;align-items:center;gap:14px;margin-bottom:8px;}
+  .logo{width:46px;height:46px;border-radius:13px;background:var(--orange);display:flex;align-items:center;justify-content:center;font-family:'Poppins';font-weight:800;font-size:20px;color:#fff;}
+  .brand small{display:block;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:2px;}
+  .brand b{font-family:'Poppins';font-size:19px;font-weight:800;letter-spacing:.5px;}
+  .slogan{margin-left:auto;font-family:'Poppins';font-weight:600;font-size:13px;color:var(--pink);background:#FDEFF5;border:1px solid #F8D3E2;padding:7px 14px;border-radius:20px;white-space:nowrap;}
+  h1{font-family:'Poppins';font-size:clamp(22px,3.4vw,32px);font-weight:800;line-height:1.2;margin:22px 0 8px;}
+  h1 .hl{color:var(--teal);}
+  .lead{font-size:15px;line-height:1.6;color:var(--muted);max-width:720px;margin-bottom:26px;}
+  .lead b{color:var(--ink);}
+  .grid{display:grid;grid-template-columns:1fr 1.25fr;gap:26px;align-items:start;}
+  @media(max-width:860px){.grid{grid-template-columns:1fr;}}
+  .stage{background:linear-gradient(165deg,#FFFFFF 0%,#F2FBF9 100%);border:1px solid var(--line);border-radius:20px;padding:20px 14px 14px;position:sticky;top:16px;}
+  .sandals{display:flex;justify-content:center;gap:6px;}
+  .sandals svg{width:44%;max-width:190px;height:auto;}
+  .stage-cap{text-align:center;font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.5;}
+  .stage-cap b{color:var(--teal);}
+  .combos{text-align:center;margin-top:8px;}
+  .combos span{display:inline-block;font-size:11.5px;font-weight:700;color:var(--orange);background:#FFF1E3;border:1px solid #FAD7B0;border-radius:20px;padding:4px 12px;}
+  .panel h2{font-family:'Poppins';font-size:15px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--teal-dark);margin-bottom:4px;}
+  .presets{display:flex;gap:10px;margin:10px 0 18px;flex-wrap:wrap;}
+  .preset{flex:1;min-width:170px;border:1.5px solid var(--teal);background:#fff;color:var(--teal);border-radius:12px;padding:10px 14px;font-family:'Poppins';font-weight:700;font-size:13px;cursor:pointer;transition:.15s;}
+  .preset:hover{background:var(--teal);color:#fff;}
+  .preset.on{background:var(--teal);color:#fff;}
+  .preset small{display:block;font-family:'Inter';font-weight:500;font-size:11px;opacity:.85;margin-top:2px;}
+  .item{border:1.5px solid var(--line);background:#fff;border-radius:16px;padding:14px 16px;margin-bottom:12px;cursor:pointer;transition:.15s;display:flex;gap:14px;align-items:flex-start;}
+  .item:hover{border-color:#C9C4B8;}
+  .item.sel{border-color:var(--ink);box-shadow:0 2px 0 var(--ink);}
+  .chip{width:30px;height:30px;border-radius:50%;flex-shrink:0;margin-top:2px;border:3px solid #fff;box-shadow:0 0 0 1.5px var(--gray-stroke);}
+  .item.sel .chip{box-shadow:0 0 0 2px currentColor;}
+  .it-body{flex:1;}
+  .it-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  .it-name{font-family:'Poppins';font-weight:700;font-size:15px;}
+  .it-part{font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);}
+  .it-price{margin-left:auto;font-family:'Poppins';font-weight:800;font-size:15px;color:var(--teal);white-space:nowrap;}
+  .it-desc{font-size:13px;color:var(--muted);line-height:1.5;margin-top:4px;}
+  .it-check{font-size:12px;font-weight:700;color:var(--orange);opacity:0;margin-top:5px;}
+  .item.sel .it-check{opacity:1;}
+  .timeline{display:flex;gap:6px;margin:20px 0 6px;flex-wrap:wrap;}
+  .tl{flex:1;min-width:88px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 6px;text-align:center;}
+  .tl b{display:block;font-family:'Poppins';font-size:12px;color:var(--teal);}
+  .tl span{font-size:10px;color:var(--muted);line-height:1.3;display:block;margin-top:2px;}
+  .tl-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+  .metrics{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .metric{flex:1;min-width:150px;background:var(--teal-dark);color:#fff;border-radius:12px;padding:12px 14px;}
+  .metric b{font-family:'Poppins';font-size:17px;display:block;}
+  .metric span{font-size:11px;opacity:.8;}
+  .totalbar{position:sticky;bottom:12px;margin-top:24px;background:var(--teal-dark);border-radius:18px;padding:18px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;color:#fff;box-shadow:0 10px 30px rgba(18,59,79,.25);}
+  .totalbar .lbl{font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.75;font-weight:700;}
+  .totalbar .val{font-family:'Poppins';font-size:clamp(22px,3vw,30px);font-weight:800;}
+  .totalbar .note{font-size:11.5px;opacity:.75;max-width:300px;line-height:1.45;}
+  .totalbar .right{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;}
+  .btn{border:none;border-radius:11px;padding:12px 18px;font-family:'Poppins';font-weight:700;font-size:13.5px;cursor:pointer;transition:.15s;}
+  .btn-main{background:var(--orange);color:#fff;}
+  .btn-main:hover{filter:brightness(1.08);}
+  .btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3);}
+  .fineprint{font-size:11.5px;color:var(--muted);line-height:1.6;margin-top:18px;}
+  .fineprint b{color:var(--ink);}
+  footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:#98A2AC;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 20px;border-radius:24px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:50;}
+  .toast.show{opacity:1;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo">M</div>
+    <div class="brand"><small>Proposta interativa · Fase 1 · Out 2026</small><b>MOOCHUU BRASIL</b></div>
+    <div class="slogan">Mix &amp; Match your vibe 🎨</div>
+  </header>
+
+  <h1>Você vende customização.<br>Então esta proposta <span class="hl">também é customizável.</span></h1>
+  <p class="lead">Cada módulo do orçamento é uma <b>parte da sandália</b>. Selecione o que quiser — a sandália vai colorindo e o total se monta sozinho. Ao final, <b>copie o resumo do pedido</b> e envie de volta. Assim como o produto: <b>combinações que só você monta.</b></p>
+
+  <div class="grid">
+    <!-- PALCO: SANDÁLIA -->
+    <div class="stage">
+      <div class="sandals">
+        <svg id="svgA" viewBox="0 0 200 420">
+          <path id="p-sola" d="M100,12 C155,12 178,70 176,150 C174,250 155,350 100,408 C45,350 26,250 24,150 C22,70 45,12 100,12 Z"/>
+          <path id="p-palmilha" d="M100,36 C143,36 160,82 158,152 C156,242 140,330 100,384 C60,330 44,242 42,152 C40,82 57,36 100,36 Z"/>
+          <path id="p-tira1" d="M100,148 C82,124 68,108 54,96" fill="none" stroke-linecap="round"/>
+          <path id="p-tira2" d="M100,148 C118,124 132,108 146,96" fill="none" stroke-linecap="round"/>
+          <circle id="p-fivela" cx="100" cy="148" r="11"/>
+        </svg>
+        <svg id="svgB" viewBox="0 0 200 420" style="transform:rotate(7deg);">
+          <path id="q-sola" d="M100,12 C155,12 178,70 176,150 C174,250 155,350 100,408 C45,350 26,250 24,150 C22,70 45,12 100,12 Z"/>
+          <path id="q-palmilha" d="M100,36 C143,36 160,82 158,152 C156,242 140,330 100,384 C60,330 44,242 42,152 C40,82 57,36 100,36 Z"/>
+          <path id="q-tira1" d="M100,148 C82,124 68,108 54,96" fill="none" stroke-linecap="round"/>
+          <path id="q-tira2" d="M100,148 C118,124 132,108 146,96" fill="none" stroke-linecap="round"/>
+          <circle id="q-fivela" cx="100" cy="148" r="11"/>
+        </svg>
+      </div>
+      <div class="stage-cap" id="cap"><b>1 sandália</b> = a estrutura da marca no Brasil.<br>Selecione a mídia mensal e o <b>par completo</b> aparece: estrutura + mídia rodando.</div>
+      <div class="combos"><span id="comboTag">6 módulos · 63 combinações possíveis</span></div>
+    </div>
+
+    <!-- PAINEL: MÓDULOS -->
+    <div class="panel">
+      <h2>Monte seu par</h2>
+      <div class="presets">
+        <button class="preset" id="preA">Opção A — Par completo<small>estrutura + 3 meses de mídia · R$ 26.600</small></button>
+        <button class="preset" id="preB">Opção B — Só a estrutura<small>mídia entra na Fase 2 · R$ 17.000</small></button>
+      </div>
+      <div id="items"></div>
+
+      <div class="tl-label">Tamanho do par — cronograma (6 semanas)</div>
+      <div class="timeline">
+        <div class="tl"><b>S1</b><span>Kickoff + posicionamento</span></div>
+        <div class="tl"><b>S2</b><span>Site no ar + perfis</span></div>
+        <div class="tl"><b>S3</b><span>Grade + Reels + templates</span></div>
+        <div class="tl"><b>S4</b><span>Pixel + campanha ativa</span></div>
+        <div class="tl"><b>S5</b><span>Otimização</span></div>
+        <div class="tl"><b>S6</b><span>Relatório + Fase 2</span></div>
+      </div>
+
+      <div class="tl-label" style="margin-top:18px;">O dia 45 mede assim</div>
+      <div class="metrics">
+        <div class="metric"><b>1.000+</b><span>seguidores no Instagram</span></div>
+        <div class="metric"><b>300+</b><span>leads na lista de espera</span></div>
+        <div class="metric"><b>≤ R$ 8</b><span>custo por lead · alcance 150k+</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOTAL -->
+  <div class="totalbar">
+    <div>
+      <div class="lbl">Seu par</div>
+      <div class="val" id="total">R$ 0</div>
+    </div>
+    <div class="note" id="resumoMini">Nenhum módulo selecionado ainda.</div>
+    <div class="right">
+      <button class="btn btn-ghost" id="copyBtn">📋 Copiar resumo do pedido</button>
+      <button class="btn btn-main" id="waBtn">Enviar por WhatsApp</button>
+    </div>
+  </div>
+
+  <p class="fineprint"><b>Forma de pagamento:</b> 40% início · 30% aprovação do site · 30% entrega final (módulos de estrutura). Mídia mensal faturada mês a mês (verba + gestão de tráfego). <b>Verba de mídia:</b> abaixo de R$ 1.500/mês o Meta não gera aprendizado estatístico — o piso saudável é R$ 2.000/mês. <b>Validade da proposta:</b> 15 dias. Venda (Mercado Livre, distribuidores, loja) fica sob responsabilidade do comercial MC — esta fase entrega a casa pronta: canais ativos, público aquecido e lista de espera.</p>
+
+  <footer>
+    <span>MOOCHUU BRASIL — Fase 1 · proposta feita com o conceito da marca: Mix &amp; Match</span>
+    <span>Outubro 2026 · valores em BRL</span>
+  </footer>
+</div>
+<div class="toast" id="toast">Resumo copiado! ✓</div>
+
+<script>
+const PARTS = {
+  sola:     {color:'#E8590C', stroke:false},
+  palmilha: {color:'#0B7285', stroke:false},
+  tira1:    {color:'#D6336C', stroke:true},
+  tira2:    {color:'#4267B2', stroke:true},
+  fivela:   {color:'#F59F00', stroke:false}
+};
+const ITEMS = [
+  {id:'trop',  part:'sola',     name:'Tropicalização da marca', partLabel:'a SOLA — a base de tudo', price:4500,
+   desc:'Posicionamento BR ("seu estilo em cada passo"), manual de identidade verbal, bio, descrições, FAQ, glossário de produto e tabela de tamanhos BR.'},
+  {id:'site',  part:'palmilha', name:'Site institucional', partLabel:'a PALMILHA — onde a marca pisa', price:6500,
+   desc:'Site de MARCA (não loja): 5 páginas, SEO on-page, banner "em breve no Brasil" e captura da lista de espera — o ativo mais valioso do pré-lançamento.'},
+  {id:'ig',    part:'tira1',    name:'Instagram @moochuu.brasil', partLabel:'a TIRA FRONTAL — o estilo', price:2700,
+   desc:'Perfil novo e tropicalizado, 9 posts de fundação, 3 Reels de lançamento e kit de templates para o time publicar com consistência.'},
+  {id:'fb',    part:'tira2',    name:'Facebook + Business Manager', partLabel:'a TIRA TRASEIRA — o alcance', price:1800,
+   desc:'Página oficial espelhando o IG (público 30+), pixel instalado no site, catálogo mínimo e vinculação IG ↔ FB — a base que faz a mídia existir.'},
+  {id:'midia', part:'fivela',   name:'Setup de mídia', partLabel:'a FIVELA — que prende tudo', price:1500,
+   desc:'Business Manager configurado, campanha de awareness criada com o profissional de tráfego e primeira estrutura de anúncios no ar.'},
+  {id:'mensal',part:'par',      name:'Mídia mensal — 3 meses', partLabel:'o PAR COMPLETO — estrutura + mídia rodando', price:9600,
+   desc:'Verba R$ 2.000/mês + gestão de tráfego R$ 1.200/mês, por 3 meses. Objetivo: awareness + lista de espera. Relatório mensal de 1 página.'}
+];
+const GRAY='#EDEBE6', GSTROKE='#D8D5CD';
+const state={};
+function fmt(v){return 'R$ '+v.toLocaleString('pt-BR');}
+function build(){
+  const box=document.getElementById('items');
+  ITEMS.forEach(it=>{
+    state[it.id]=false;
+    const el=document.createElement('div');
+    el.className='item'; el.id='it-'+it.id;
+    el.innerHTML=`<div class="chip" style="background:${(PARTS[it.part]||{color:'#868E96'}).color};color:${(PARTS[it.part]||{color:'#868E96'}).color}"></div>
+      <div class="it-body">
+        <div class="it-top"><span class="it-name">${it.name}</span><span class="it-part">· ${it.partLabel}</span><span class="it-price">+ ${fmt(it.price)}</span></div>
+        <div class="it-desc">${it.desc}</div>
+        <div class="it-check">✓ selecionado — clicando de novo, remove</div>
+      </div>`;
+    el.onclick=()=>{state[it.id]=!state[it.id];render();};
+    box.appendChild(el);
+  });
+}
+function paint(prefix, part, on){
+  const p=PARTS[part];
+  const ids = part==='par' ? [] : (part==='tira1'? [prefix+'-tira1'] : part==='tira2'? [prefix+'-tira2'] : part==='fivela'? [prefix+'-fivela'] : [prefix+'-'+part]);
+  ids.forEach(id=>{
+    const el=document.getElementById(id); if(!el)return;
+    if(part==='tira1'||part==='tira2'){ el.setAttribute('stroke', on?p.color:GSTROKE); el.setAttribute('stroke-width', on?15:13); }
+    else { el.setAttribute('fill', on?p.color:GRAY); el.setAttribute('stroke', on?p.color:GSTROKE); el.setAttribute('stroke-width','2'); }
+  });
+}
+function render(){
+  let total=0, n=0;
+  ITEMS.forEach(it=>{
+    const on=state[it.id];
+    document.getElementById('it-'+it.id).classList.toggle('sel',on);
+    if(it.part==='par'){
+      const b=document.getElementById('svgB');
+      b.style.opacity=on?'1':'0.18';
+      ['sola','palmilha','tira1','tira2','fivela'].forEach(pp=>paint('q',pp,on));
+    } else {
+      paint('p',it.part,on);
+    }
+    if(on){total+=it.price;n++;}
+  });
+  document.getElementById('total').textContent=fmt(total);
+  const sel=ITEMS.filter(i=>state[i.id]);
+  document.getElementById('resumoMini').textContent = sel.length? sel.map(i=>i.name).join(' · ') : 'Nenhum módulo selecionado ainda.';
+  document.getElementById('comboTag').textContent = n===0 ? '6 módulos · 63 combinações possíveis'
+    : n===6 ? 'PAR COMPLETO — a combinação recomendada ✨'
+    : n+' de 6 módulos · combinação única';
+  document.getElementById('preA').classList.toggle('on', ITEMS.every(i=>state[i.id]));
+  document.getElementById('preB').classList.toggle('on', state['trop']&&state['site']&&state['ig']&&state['fb']&&!state['midia']&&!state['mensal']);
+}
+function summary(){
+  const sel=ITEMS.filter(i=>state[i.id]);
+  if(!sel.length) return 'Nenhum módulo selecionado.';
+  let t='🩴 MOOCHUU BRASIL — Fase 1 (montei meu par)\n\n';
+  sel.forEach(i=>t+='• '+i.name+' — '+fmt(i.price)+'\n');
+  const tot=sel.reduce((s,i)=>s+i.price,0);
+  t+='\nTOTAL: '+fmt(tot)+'\nCronograma: 6 semanas\nMetas dia 45: 1.000 seguidores · 300 leads na lista · CPL ≤ R$ 8';
+  return t;
+}
+document.getElementById('preA').onclick=()=>{ITEMS.forEach(i=>state[i.id]=true);render();};
+document.getElementById('preB').onclick=()=>{ITEMS.forEach(i=>state[i.id]=['trop','site','ig','fb'].includes(i.id));render();};
+document.getElementById('copyBtn').onclick=()=>{
+  const t=summary();
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>toast(),()=>fallback(t));}
+  else fallback(t);
+};
+function fallback(t){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast();}catch(e){}document.body.removeChild(ta);}
+function toast(){const el=document.getElementById('toast');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2200);}
+document.getElementById('waBtn').onclick=()=>{
+  const t=encodeURIComponent(summary()+'\n\n(via configurador Moochuu Brasil)');
+  window.open('https://wa.me/?text='+t,'_blank');
+};
+build();render();
+const pre=new URLSearchParams(location.search).get('pre');
+if(pre==='A'){ITEMS.forEach(i=>state[i.id]=true);render();}
+else if(pre==='B'){ITEMS.forEach(i=>state[i.id]=['trop','site','ig','fb'].includes(i.id));render();}
+</script>
+</body>
+</html>
